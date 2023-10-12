@@ -12,6 +12,9 @@ class Client(models.Model):
     def __str__(self) -> str:
         return f'Client #{self.pk}: {self.name}, phone: {self.phone}, email: {self.email}'
     
+    def str_to_title(self):
+        return f'Client #{self.pk}: {self.name}'
+    
     
 class Product(models.Model):
     name = models.CharField(max_length=50)
@@ -21,13 +24,23 @@ class Product(models.Model):
     added_date = models.DateTimeField(auto_now_add=True)
     
     def __str__(self) -> str:
-        return f'Product #{self.pk}: {self.name}, price: {self.price},count: {self.count}'
+        return f'Product #{self.pk}: {self.name}, price: {self.price}'
     
 
 class Order(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product)
     total_price = models.DecimalField(max_digits=12, decimal_places=2)
     date_created = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self) -> str:
+        return f'Order #{self.pk}'
+    
 
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    count = models.IntegerField()
+    price = models.FloatField()
+
+    def __str__(self):
+        return f"{self.product} x {self.count} for {self.order}\n"

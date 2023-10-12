@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandParser
 
-from shop_app.models import Client, Product, Order
+from shop_app.models import Client, OrderItem, Product, Order
 
 PASSWORD = '1111'
 
@@ -15,11 +15,14 @@ class Command(BaseCommand):
             clients = Client.objects.all()
             products = Product.objects.all()
             orders = Order.objects.all()
+            order_items = OrderItem.objects.all()
             for item in clients:
                 item.delete()
             for item in products:
                 item.delete()
             for item in orders:
+                item.delete()
+            for item in order_items:
                 item.delete()
                 
             self.stdout.write('Database cleared')

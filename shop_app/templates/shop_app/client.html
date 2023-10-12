@@ -1,0 +1,23 @@
+{% extends 'shop_app/base.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block content %}
+<h1>{{ client }}</h1>
+{% for order in orders %}
+<li>
+    <ol>Order #{{ order.id }}: total price = {{ order.total_price }}, products:
+        <li>
+            {% for key, value in order_items.items %}
+            {% if key == order.id %}
+            {% for item in value %}
+            <ol> {{ item }} </ol>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </li>
+    </ol>
+</li>
+{% endfor %}
+{% endblock %}
