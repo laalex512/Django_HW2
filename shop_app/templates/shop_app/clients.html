@@ -1,0 +1,15 @@
+{% extends 'shop_app/base.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block content %}
+<h1>{{ title }}</h1>
+<li>
+    {% for client in clients %}
+    <ol>
+        <a href="{% url 'client' client.id %}"> {{ client }} </a>
+    </ol>
+    {% endfor %}
+</li>
+{% endblock %}

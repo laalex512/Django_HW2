@@ -3,6 +3,15 @@ from datetime import datetime, timedelta
 from shop_app.models import Client, Order, OrderItem
 
 
+def clients(request):
+    clients = Client.objects.all()
+    context = {
+        'clients': clients,
+        'title': 'All clients'
+    }
+    return render(request, "shop_app/clients.html", context)
+
+
 def client(request, client_id: int):
     client = Client.objects.get(pk=client_id)
     orders = Order.objects.filter(client=client)
