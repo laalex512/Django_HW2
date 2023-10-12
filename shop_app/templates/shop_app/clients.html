@@ -5,11 +5,11 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-<li>
+<ol>
     {% for client in clients %}
-    <ol>
+    <li>
         <a href="{% url 'client' client.id %}"> {{ client }} </a>
-    </ol>
+    </li>
     {% endfor %}
-</li>
+</ol>
 {% endblock %}

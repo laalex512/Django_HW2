@@ -5,19 +5,20 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-{% for order in orders %}
-<li>
-    <ol>Order #{{ order.id }}: total price = {{ order.total_price }}, products:
-        <li>
+<ol>
+    {% for order in orders %}
+    <li>Order #{{ order.id }}: total price = {{ order.total_price }}, products:
+        <ol>
             {% for key, value in order_items.items %}
             {% if key == order.id %}
             {% for item in value %}
-            <ol> {{ item }} </ol>
+            <li> {{ item }} </li>
             {% endfor %}
             {% endif %}
             {% endfor %}
-        </li>
-    </ol>
-</li>
-{% endfor %}
+        </ol>
+    </li>
+    {% endfor %}
+</ol>
+
 {% endblock %}
