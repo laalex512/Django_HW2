@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     path("client/<int:client_id>/", views.client, name="client"),
-    # path("cube/<int:count>", views.cube, name="cube"),
-    # path("rand_num/<int:count>", views.rand_num, name="rand_num"),
+    path("client/<int:client_id>/order7", views.client_7days, name="client_7days"),
+    path("client/<int:client_id>/order30", views.client_30days, name="client_30days"),
+    path("client/<int:client_id>/order365", views.client_365days, name="client_365days"),
 ]
