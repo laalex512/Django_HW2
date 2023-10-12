@@ -21,4 +21,8 @@
     {% endfor %}
 </ol>
 
+<a href="{% url 'client_7days' client.id %}">Last 7 days </a><br>
+<a href="{% url 'client_30days' client.id %}">Last 30 days </a><br>
+<a href="{% url 'client_365days' client.id %}">Last 365 days </a>
+
 {% endblock %}
