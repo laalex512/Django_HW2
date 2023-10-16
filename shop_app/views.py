@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from datetime import datetime, timedelta
-from shop_app.models import Client, Order, OrderItem
+from shop_app.models import Client, Order, OrderItem, Product
+from .forms import ProductEdit, ChoiceProduct
 
 
 def clients(request):
@@ -95,3 +96,26 @@ def client_365days(request, client_id: int):
         'title': f'Orders by {client.str_to_title()} for last 365 days'
     }
     return render(request, "shop_app/client_ordered.html", context)
+
+
+def prod_edit(request, product_id: int):
+    product = Product.objects.get(pk=product_id)
+    if request.method == 'POST':
+        print(3)
+        form = ProductEdit(request.POST, instance=product)
+        form.save()
+        # new_product = Product.objects.create(**form.cleaned_data)
+        # product = new_product
+        # product.save()
+        return choice_prod(request)
+    else:
+        form = ProductEdit(instance=product)
+    return render(request, 'shop_app/prod_edit.html', {'form':form})
+
+def choice_prod(request):
+    products = Product.objects.all()
+    context = {
+        'products': products,
+        'title': 'All products'
+    }
+    return render(request, "shop_app/choice_prod.html", context)

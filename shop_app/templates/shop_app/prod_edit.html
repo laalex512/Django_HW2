@@ -1,0 +1,20 @@
+{% extends 'shop_app/base.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+
+{% block content %}
+<h3>Edit product</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Save">
+    {% if form.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <p>{{ error }}</p>
+    {% endfor %}
+    {% endfor %}
+    {% endif %}
+</form>
+{% endblock %}
