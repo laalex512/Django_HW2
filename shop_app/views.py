@@ -98,16 +98,6 @@ def client_365days(request, client_id: int):
     return render(request, "shop_app/client_ordered.html", context)
 
 
-def prod_edit(request, product_id: int):
-    product = Product.objects.get(pk=product_id)
-    if request.method == 'POST':
-        form = ProductEdit(request.POST, instance=product)
-        form.save()
-        return choice_prod(request)
-    else:
-        form = ProductEdit(instance=product)
-    return render(request, 'shop_app/prod_edit.html', {'form':form})
-
 def choice_prod(request):
     products = Product.objects.all()
     context = {
@@ -115,3 +105,20 @@ def choice_prod(request):
         'title': 'All products'
     }
     return render(request, "shop_app/choice_prod.html", context)
+
+def prod_edit(request, product_id: int):
+    product = Product.objects.get(pk=product_id)
+    if request.method == 'POST':
+        form = ProductEdit(request.POST, request.FILES,instance=product)
+        form.save()
+        print(product.photo)
+        return choice_prod(request)
+    else:
+        form = ProductEdit(instance=product)
+    context = {
+        'form': form,
+        'product': product,
+        'title': 'Edit product'
+    }
+    return render(request, 'shop_app/prod_edit.html', context)
+

@@ -7,7 +7,7 @@ class ProductEdit(forms.ModelForm):
     class Meta:
         model = Product
         fields = [
-            'name', 'description', 'price', 'count'
+            'name', 'description', 'price', 'count', 'photo'
             ]
         exclude = ['added_date']
     added_date = forms.DateField(
@@ -17,6 +17,7 @@ class ProductEdit(forms.ModelForm):
             'type':'date'
             })
         )
+    photo = forms.ImageField()
     
 class ChoiceProduct(forms.Form):
     product = forms.ModelChoiceField(label='Product', queryset=Product.objects.all())
