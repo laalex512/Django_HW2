@@ -110,9 +110,9 @@ def prod_edit(request, product_id: int):
     product = Product.objects.get(pk=product_id)
     if request.method == 'POST':
         form = ProductEdit(request.POST, request.FILES,instance=product)
-        form.save()
-        print(product.photo)
-        return choice_prod(request)
+        if form.is_valid():
+            form.save()
+            return choice_prod(request)
     else:
         form = ProductEdit(instance=product)
     context = {
