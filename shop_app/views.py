@@ -101,12 +101,8 @@ def client_365days(request, client_id: int):
 def prod_edit(request, product_id: int):
     product = Product.objects.get(pk=product_id)
     if request.method == 'POST':
-        print(3)
         form = ProductEdit(request.POST, instance=product)
         form.save()
-        # new_product = Product.objects.create(**form.cleaned_data)
-        # product = new_product
-        # product.save()
         return choice_prod(request)
     else:
         form = ProductEdit(instance=product)
