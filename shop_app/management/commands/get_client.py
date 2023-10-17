@@ -3,16 +3,15 @@ from shop_app.models import Client
 
 
 class Command(BaseCommand):
-    help = 'Return client by id'
-    
+    help = "Return client by id"
+
     def add_arguments(self, parser):
-        parser.add_argument('pk', type=int, help='Client ID')
-    
+        parser.add_argument("pk", type=int, help="Client ID")
+
     def handle(self, *args, **kwargs):
-        pk = kwargs['pk']
+        pk = kwargs["pk"]
         result = Client.objects.filter(pk=pk).first()
         if result:
-            self.stdout.write(f'{result}')
+            self.stdout.write(f"{result}")
         else:
             self.stdout.write(f"Client with id = {pk} doesn't exists")
-            

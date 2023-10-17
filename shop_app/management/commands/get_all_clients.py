@@ -4,10 +4,9 @@ from shop_app.models import Client
 
 
 class Command(BaseCommand):
-    help = 'Return all clients'
-    
+    help = "Return all clients"
+
     def handle(self, *args, **kwargs):
         clients = Client.objects.all()
         for client in clients:
-            self.stdout.write(f'{client}\n')
-        
+            self.stdout.write(f"{client}\n")

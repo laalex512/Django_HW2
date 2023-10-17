@@ -6,18 +6,15 @@ from django import forms
 class ProductEdit(forms.ModelForm):
     class Meta:
         model = Product
-        fields = [
-            'name', 'description', 'price', 'count', 'photo'
-            ]
-        exclude = ['added_date']
+        fields = ["name", "description", "price", "count", "photo"]
+        exclude = ["added_date"]
+
     added_date = forms.DateField(
         initial=datetime.date.today,
-        widget=forms.DateInput(attrs={
-            'class': 'form-control',
-            'type':'date'
-            })
-        )
-    photo = forms.ImageField()
-    
+        widget=forms.DateInput(attrs={"class": "form-control", "type": "date"}),
+    )
+    photo = forms.ImageField(required=False)
+
+
 class ChoiceProduct(forms.Form):
-    product = forms.ModelChoiceField(label='Product', queryset=Product.objects.all())
+    product = forms.ModelChoiceField(label="Product", queryset=Product.objects.all())
