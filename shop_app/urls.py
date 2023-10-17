@@ -10,5 +10,4 @@ urlpatterns = [
         "client/<int:client_id>/order365", views.client_365days, name="client_365days"
     ),
     path("prod_edit/", views.prod_edit, name="prod_edit"),
-    path("choice_prod/", views.choice_prod, name="choice_prod"),
 ]

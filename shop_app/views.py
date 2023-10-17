@@ -94,12 +94,6 @@ def client_365days(request, client_id: int):
     return render(request, "shop_app/client_ordered.html", context)
 
 
-def choice_prod(request):
-    products = Product.objects.all()
-    context = {"products": products, "title": "All products"}
-    return render(request, "shop_app/choice_prod.html", context)
-
-
 def prod_edit(request):
     selected_product = None
     if request.method == "POST":
