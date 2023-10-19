@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from datetime import datetime, timedelta
 from shop_app.models import Client, Order, OrderItem, Product
 from .forms import ProductEdit, ChoiceProduct
@@ -123,3 +123,30 @@ def prod_edit(request):
         "title": "Edit product",
     }
     return render(request, "shop_app/prod_edit.html", context)
+
+
+def order_create(request):
+    if request.method == 'POST':
+        client_id = request.POST.get('client')
+        products = request.POST.getlist('products')
+        quantities = request.POST.getlist('quantities')
+
+        # Создаем новый заказ
+        order = Order.objects.create(client_id=client_id)
+
+        # Добавляем товары в заказ
+        for product, quantity in zip(products, quantities):
+            product = Product.objects.get(id=product)
+            quantity = int(quantity)
+            OrderItem.objects.create(order=order, product=product, quantity=quantity, price=product.price*quantity)
+
+        # Обновляем общую стоимость заказа
+        order.total_price = sum([item.price for item in order.orderitem_set.all()])
+        order.save()
+        return redirect('/admin/shop_app/order')
+
+
+    clients = Client.objects.all()
+    products = Product.objects.all()
+    context = {'clients': clients, 'products': products}
+    return render(request, 'shop_app/order_create.html', context)

@@ -1,25 +1,22 @@
-{% extends 'shop_app/base.html' %}
-
-{% block title %} {{title}} {% endblock %}
-
-
-{% block content %}
+{% extends 'shop_app/base.html' %} {% block title %} {{title}} {% endblock %} {%
+block content %}
 <h1>{{ title }}</h1>
 <ol>
-    {% for order in orders %}
-    <li>Order #{{ order.id }}: total price = {{ order.total_price }}, products:
-        <ol>
-            {% for key, value in order_items.items %}
-            {% if key == order.id %}
-            {% for item in value %}
-            <li> {{ item }} </li>
-            {% endfor %}
-            {% endif %}
-            {% endfor %}
-        </ol>
-    </li>
-    {% endfor %}
-    <ol><br>
+  {% for order in orders %}
+  <li>
+    Order #{{ order.id }}: total price = {{ order.total_price }}, products:
+    <ol>
+      {% for key, value in order_items.items %} {% if key == order.id %} {% for
+      item in value %}
+      <li>{{ item }}</li>
+      {% endfor %} {% endif %} {% endfor %}
+    </ol>
+  </li>
+  {% endfor %}
+  <ol>
+    <br />
 
-        <a href="{% url 'client' client.id %}">All orders</a>
-        {% endblock %}
+    <a href="{% url 'client' client.id %}">All orders</a>
+    {% endblock %}
+  </ol>
+</ol>
